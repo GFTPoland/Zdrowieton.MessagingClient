@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "iojs"
   - "7"
+before_install:
+  echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" > .npmrc
 deploy:
   provider: npm
   email: NPM_EMAIL_ADDRESS
