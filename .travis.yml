@@ -3,7 +3,7 @@ node_js:
   - "iojs"
   - "7"
 before_install:
-  echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" > .npmrc
+  travis encrypt --add deploy.api_key ${NPM_AUTH_TOKEN}
 deploy:
   provider: npm
   email: NPM_EMAIL_ADDRESS
