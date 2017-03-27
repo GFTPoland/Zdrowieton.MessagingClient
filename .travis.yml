@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "7"
-before_deploy:
+before_install:
   provider: script
   script: script.sh
 deploy:
