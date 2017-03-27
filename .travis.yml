@@ -1,11 +1,7 @@
 language: node_js
 node_js:
   - "7"
-script:
-  npm version patch
-  git add *;
-  git commit -m "Version Updated"
-  git push
+install: ./script.sh
 deploy:
   provider: npm
   api_key: $NPM_AUTH_TOKEN
