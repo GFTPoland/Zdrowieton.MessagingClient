@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "7"
 before_deploy:
+  provider: script
   script: script.sh
 deploy:
   provider: npm
