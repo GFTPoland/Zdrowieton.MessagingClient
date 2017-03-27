@@ -1,9 +1,6 @@
 language: node_js
 node_js:
   - "7"
-before_install:
-  - chmod +x ./script.sh
-install: ./script.sh
 deploy:
   provider: npm
   api_key: $NPM_AUTH_TOKEN
