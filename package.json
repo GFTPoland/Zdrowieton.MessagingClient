@@ -4,7 +4,6 @@
   "description": "lib for zdrowieton websocket communication",
   "main": "messagingClient.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
