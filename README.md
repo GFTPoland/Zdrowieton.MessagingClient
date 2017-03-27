@@ -1,5 +1,7 @@
 # JS lib for Zdrowieton hackathon
 
+[![Build Status](https://travis-ci.org/GFTPoland/Zdrowieton.MessagingClient.svg?branch=master)](https://travis-ci.org/GFTPoland/Zdrowieton.MessagingClient) [![npm version](https://badge.fury.io/js/zdrowieton.svg)](https://badge.fury.io/js/zdrowieton)
+
 Information about the hackathon itself can be found [here](http://zdrowieton.pl/).
 
 This simple library which enables websocket communication with [server](https://github.com/GFTPoland/Zdrowieton.MessagingServer).
