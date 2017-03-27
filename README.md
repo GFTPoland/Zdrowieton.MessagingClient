@@ -9,7 +9,7 @@ This simple library which enables websocket communication with [server](https://
 Create instance:
 `var mc = new MessagingClient('http://localhost/');`
 
-Connecting:
+Connecting (not required, subscribe and sendMessage automatically connects to server):
 
 `mc.connect();`
 
