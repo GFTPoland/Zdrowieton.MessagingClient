@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "7"
+before_deploy:
+  script: script.sh
 deploy:
   provider: npm
   api_key: $NPM_AUTH_TOKEN
