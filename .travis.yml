@@ -4,4 +4,4 @@ node_js:
   - "7"
 deploy:
   provider: npm
-  api_key: NPM_AUTH_TOKEN
+  api_key: $NPM_AUTH_TOKEN
