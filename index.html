@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>zdrowieton.js</title>
+        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="./node_modules/sockjs-client/dist/sockjs.min.js"></script>
+        <script src="./node_modules/stompjs/lib/stomp.js"></script>
+        <script src="./messagingClient.js"></script>
+        <style>
+            label, input, button {
+                margin: 3px;
+                padding: 3px 5px;
+            }
+            input, button {
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div>
+                <label for="topic">Topic:</label>
+                <input name="topic" id="topic" value="zdrowieton" />
+                <button id="subscribe">Subscribe</button>
+                <button id="closeConnection">Close connection</button>
+            </div>
+            <div>
+                <label for="message" >Message</label>
+                <input name="message" id="message" type="text" />
+                <button id="send">Send</button>
+            </div>
+            <div id="messages">
+                <pre></pre>
+            </div>
+        </div>
+        <script>
+            
+            var messages = [];
+            // var mc = new MessagingClient('http://193.70.112.77:8080');
+            var mc = new MessagingClient('http://vps390375.ovh.net:8080');
+
+            $('#subscribe').click(function () {
+                var topic = getTopic();
+                mc.subscribe(topic, function (message) {
+                    onMessage(topic, message);
+                });
+                $('#closeConnection').show();
+            });
+
+            $('#closeConnection').hide();
+            $('#closeConnection').click(function () {
+                mc.closeConnection();
+                $('#closeConnection').hide();
+            });
+
+            $('#send').click(function () {
+                mc.sendMessage(getTopic(), getMessage());
+            });
+
+            function getTopic() {
+                return $('#topic').val();
+            }
+
+            function getMessage() {
+                return $('#message').val();
+            }
+
+            function onMessage(topicName, message) {
+                messages.push({
+                    topicName: topicName,
+                    message: message
+                });
+                displayMessages();
+            }
+
+            function displayMessages() {
+                var messagesContainer = $('#messages');
+                messagesContainer.empty();
+                var messagesElements = [];
+                for (var i = 0; i < messages.length; i++) {
+                    messagesElements.push($('<div>' + messages[i].topicName + ': ' + messages[i].messages + '</div>'));
+                }
+                messagesContainer.append(messagesElements);
+            }
+
+        </script>
+    </body>
+</html>
