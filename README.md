@@ -37,23 +37,27 @@ Where `config` is an configurartion with following keys:
 - `wsUrl` [string, optional] - a URL of the WS server, defaults to *ws://zdrowieton.gft.com/zdrowieton-websocket/websocket*. Change to *http://zdrowieton.gft.com/zdrowieton-websocket* if you use SockJS implementation
 )
 
-Connecting (not required, subscribe and sendMessage automatically connects to server):
+####  Connecting 
+
+not required, subscribe and sendMessage automatically connects to server
 
 `mc.connect();`
 
-Subscribing:
+#### Subscribing to messaged:
 
 `mc.subscribe(topicName, function callback(message) { ... });`
 
-Sending messages:
+#### Sending messages:
 
 `mc.sendMessage(topicName, message);`
 
-Unsubscribing:
+A `message` can a `string`, `Array` or an `Object`, which will be serialized to JSON automatically
+
+#### Unsubscribing:
 
 `mc.unsubscribe(topicName);`
 
-Closing connection:
+#### Closing connection:
 
 `mc.closeConnection();`
 

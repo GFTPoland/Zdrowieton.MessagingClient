@@ -58,6 +58,32 @@
             return '/topic/' + appId + '_' + name
         }
 
+        function isObject(obj) {
+            return obj === Object(obj);
+        }
+
+        function isArray(obj) {
+            return Array.isArray(obj)
+        }
+
+        function stringify(payload) {
+            if (isObject(payload) || isArray(payload)) {
+                return JSON.stringify(payload);
+            } else {
+                return payload;
+            }
+        }
+
+        function parse(payload) {
+            var data;
+            try {
+                data = JSON.parse(payload);
+            } catch (e) {
+                data = payload;
+            }
+            return data;
+        }
+
         return {
             connect: function (callback) {
                 getConnection(callback);
@@ -65,7 +91,7 @@
             subscribe: function (topicName, callback) {
                 getConnection(function (stompClient) {
                     topics[topicName] = stompClient.subscribe(getSubscribeDest(topicName), function (message) {
-                        callback(message.body);
+                        callback(parse(message.body));
                     });
                 });
             },
@@ -78,7 +104,7 @@
             },
             sendMessage: function (topicName, message) {
                 getConnection(function (stompClient) {
-                    stompClient.send(getSendDest(topicName), {}, message);
+                    stompClient.send(getSendDest(topicName), {}, stringify(message));
                 });
             },
             closeConnection: function () {
