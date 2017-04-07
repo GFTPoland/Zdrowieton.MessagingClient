@@ -1,4 +1,6 @@
-# JS lib for Zdrowieton hackathon
+# Zdrowieton.MessagingClient
+
+JS library providing websocket communication for Zdrowieton hackathon.
 
 [![Build Status](https://travis-ci.org/GFTPoland/Zdrowieton.MessagingClient.svg?branch=master)](https://travis-ci.org/GFTPoland/Zdrowieton.MessagingClient) [![npm version](https://badge.fury.io/js/zdrowieton.svg)](https://badge.fury.io/js/zdrowieton)
 
@@ -6,14 +8,34 @@ Information about the hackathon itself can be found [here](http://zdrowieton.pl/
 
 This simple library which enables websocket communication with [server](https://github.com/GFTPoland/Zdrowieton.MessagingServer).
 
-## How to use it?
+## Installation
 
-Create instance:
-`var mc = new MessagingClient(config);`
+Just install it using NPM:
 
-Where config is an object with following keys:
-- `appId` [string, required] - your unique application ID, used in all your client using MessagingClient
-- `wsUrl` [string] - address of WS server, defaults to *http://zdrowieton.gft.com/zdrowieton-websocket*
+`npm install zdrowieton`
+
+and then require it in your app:
+
+`var ZdrowietonMessagingClient = require('zdrowieton')`
+
+If you don't use a module bundler like Browserify or Wwebpack, then download this repo and include `zdrowietonMessagingClient.js` in your HTML file. Remember to include stomp-js dependency as well!
+
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="zdrowietonMessagingClient.js"></script>`
+```
+
+## Usage
+
+First create an instance:
+
+`var mc = new ZdrowietonMessagingClient(config);`
+
+Where `config` is an configurartion with following keys:
+- `appId` [string, required] - your unique application ID
+- `ws` [object, optional] - a refence to alternative WebSocket implementation (for example [SockJS](https://github.com/sockjs/sockjs-client) on your page.
+- `wsUrl` [string, optional] - a URL of the WS server, defaults to *ws://zdrowieton.gft.com/zdrowieton-websocket/websocket*. Change to *http://zdrowieton.gft.com/zdrowieton-websocket* if you use SockJS implementation
+)
 
 Connecting (not required, subscribe and sendMessage automatically connects to server):
 
@@ -21,25 +43,21 @@ Connecting (not required, subscribe and sendMessage automatically connects to se
 
 Subscribing:
 
-`mc.subscribe('zdrowieton', function (message) { console.log('Message received', message) });`
+`mc.subscribe(topicName, function callback(message) { ... });`
 
 Sending messages:
 
-`mc.sendMessage('zdrowieton', 'Hello World!');`
+`mc.sendMessage(topicName, message);`
 
 Unsubscribing:
 
-`mc.unsubscribe('zdrowieton');`
+`mc.unsubscribe(topicName);`
 
 Closing connection:
 
 `mc.closeConnection();`
 
-## Running
+## Usage examples
 
-`npm install zdrowieton`
-
-Open 'index.html' to see sample usage.
-
-If your browser does not support native WebSockets, you must include [SockJS](https://github.com/sockjs/sockjs-client) on your page.
+Check `example-browser.html`, `example-browser-legacy.html` or `example-node.js` for sample usage.
 

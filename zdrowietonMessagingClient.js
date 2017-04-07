@@ -1,9 +1,19 @@
-(function(window){
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['stompjs'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('stompjs'));
+    } else {
+        root.MessagingClient = factory(root.Stomp);
+    }
+}(this, function (Stomp) {
+
+    var global = Function('return this')();
 
     function MessagingClient (config) {
 
-        if (!window.Stomp) {
-            throw new Error("Please include stompJS on your page before MessagingClient")
+        if (!Stomp) {
+            throw new Error("StompJS dependency is missing!")
         }
 
         if (!config) {
@@ -14,26 +24,22 @@
             throw new Error("config is missing 'appId' property");
         }
 
-        var wsUrl = config.wsUrl || 'ws://zdrowieton.gft.com/zdrowieton-websocket';
+        var WS = config.ws || global.WebSocket;
+
+        if (!WS) {
+            throw new Error("No support for native WebSockets detected. Please provide other implementation (for example SockJS) via config.ws")
+        }
+
+        var wsUrl = config.wsUrl || 'ws://zdrowieton.gft.com/zdrowieton-websocket/websocket';
         var appId = config.appId.toLowerCase();
         var stompClient = null;
         var topics = {};
-
-        function getWebsocket() {
-            if (!window.WebSocket) {
-                return new WebSocket(wsUrl.replace(/^http:/i, 'ws:') + '/websocket')
-            } else if (window.SockJS) {
-                return new SockJS(wsUrl.replace(/^ws:/i, 'http:'))
-            } else {
-                throw new Error("Browser does not support WS and SockJS was not found")
-            }
-        }
 
         function getConnection(callback) {
             if (stompClient) {
                 return callback(stompClient);
             } else {
-                var socket = getWebsocket();
+                var socket = new WS(wsUrl);
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function () {
                     callback(stompClient);
@@ -54,7 +60,7 @@
 
         return {
             connect: function (callback) {
-                this.getConnection(callback);
+                getConnection(callback);
             },
             subscribe: function (topicName, callback) {
                 getConnection(function (stompClient) {
@@ -85,8 +91,9 @@
         }
     }
 
-    window.MessagingClient = MessagingClient;
-
     return MessagingClient;
 
-})(window);
+}));
+
+
+

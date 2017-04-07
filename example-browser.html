@@ -3,10 +3,9 @@
 <html>
     <head>
         <title>zdrowieton.js</title>
-        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="./node_modules/sockjs-client/dist/sockjs.min.js"></script>
-        <script src="./node_modules/stompjs/lib/stomp.js"></script>
-        <script src="./messagingClient.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <script src="zdrowietonMessagingClient.js"></script>
 
         <style>
             label, input, button {
@@ -40,7 +39,7 @@
             
             var messages = [];
             var mc = new MessagingClient({
-                appId: "My_SUPER_APP"
+                appId: "zdrowieton_mc_demo"
             });
 
             $('#subscribe').click(function () {
@@ -48,6 +47,7 @@
                 mc.subscribe(topic, function (message) {
                     onMessage(topic, message);
                 });
+                $('#subscribe').hide();
                 $('#closeConnection').show();
             });
 
@@ -55,6 +55,7 @@
             $('#closeConnection').click(function () {
                 mc.closeConnection();
                 $('#closeConnection').hide();
+                $('#subscribe').show();
             });
 
             $('#send').click(function () {
