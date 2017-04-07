@@ -9,7 +9,11 @@ This simple library which enables websocket communication with [server](https://
 ## How to use it?
 
 Create instance:
-`var mc = new MessagingClient('http://localhost/');`
+`var mc = new MessagingClient(config);`
+
+Where config is an object with following keys:
+- `appId` [string, required] - your unique application ID, used in all your client using MessagingClient
+- `wsUrl` [string] - address of WS server, defaults to *http://zdrowieton.gft.com/zdrowieton-websocket*
 
 Connecting (not required, subscribe and sendMessage automatically connects to server):
 
@@ -33,9 +37,9 @@ Closing connection:
 
 ## Running
 
-`npm install`
+`npm install zdrowieton`
 
 Open 'index.html' to see sample usage.
 
-There are two versions of lib: with WebSocket and with SockJS.
+If your browser does not support native WebSockets, you must include [SockJS](https://github.com/sockjs/sockjs-client) on your page.
 
