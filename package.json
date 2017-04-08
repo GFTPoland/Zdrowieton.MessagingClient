@@ -1,6 +1,6 @@
 {
   "name": "zdrowieton",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "lib for zdrowieton websocket communication",
   "main": "zdrowietonMessagingClient.js",
   "scripts": {

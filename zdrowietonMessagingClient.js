@@ -12,7 +12,7 @@
 
     function MessagingClient (config) {
 
-        if (!Stomp && !global.SockJS) {
+        if (!Stomp && !global.Stomp) {
             throw new Error("StompJS dependency is missing!")
         }
 
