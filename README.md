@@ -33,8 +33,8 @@ First create an instance:
 
 Where `config` is an configurartion with following keys:
 - `appId` [string, required] - your unique application ID
-- `ws` [object, optional] - a refence to alternative WebSocket implementation (for example [SockJS](https://github.com/sockjs/sockjs-client) on your page.
-- `wsUrl` [string, optional] - a URL of the WS server, defaults to *ws://zdrowieton.gft.com/zdrowieton-websocket/websocket*. Change to *http://zdrowieton.gft.com/zdrowieton-websocket* if you use SockJS implementation
+- `ws` [object, optional] - a refence to alternative WebSocket implementation (for example [SockJS@1.0.0](https://github.com/sockjs/sockjs-client) on your page.
+- `wsUrl` [string, optional] - a URL of the WS server. Change it to *http://zdrowieton.gft.com/zdrowieton-websocket* if you use SockJS implementation
 )
 
 ####  Connecting 
@@ -64,4 +64,3 @@ A `message` can a `string`, `Array` or an `Object`, which will be serialized to 
 ## Usage examples
 
 Check `example-browser.html`, `example-browser-legacy.html` or `example-node.js` for sample usage.
-
