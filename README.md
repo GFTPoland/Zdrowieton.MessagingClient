@@ -22,6 +22,7 @@ If you don't use a module bundler like Browserify or Wwebpack, then download thi
 
 ```
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.0/sockjs.min.js"></script>
 <script src="zdrowietonMessagingClient.js"></script>`
 ```
 
@@ -33,9 +34,7 @@ First create an instance:
 
 Where `config` is an configurartion with following keys:
 - `appId` [string, required] - your unique application ID
-- `ws` [object, optional] - a refence to alternative WebSocket implementation (for example [SockJS@1.0.0](https://github.com/sockjs/sockjs-client) on your page.
-- `wsUrl` [string, optional] - a URL of the WS server. Change it to *http://zdrowieton.gft.com/zdrowieton-websocket* if you use SockJS implementation
-)
+- `wsUrl` [string, optional] - a URL of the alternative WebSocket server
 
 ####  Connecting 
 
@@ -63,4 +62,4 @@ A `message` can a `string`, `Array` or an `Object`, which will be serialized to 
 
 ## Usage examples
 
-Check `example-browser.html`, `example-browser-legacy.html` or `example-node.js` for sample usage.
+Check `example-browser.html` or `example-node.js` for sample usage.

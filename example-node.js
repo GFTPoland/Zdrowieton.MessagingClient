@@ -1,10 +1,7 @@
 var ZdrowietonMessagingClient = require("./zdrowietonMessagingClient");
-var SockJS = require("sockjs-client");
 
 var mc = new ZdrowietonMessagingClient({
-    appId: "zdrowieton_mc_demo",
-    ws: SockJS,
-    wsUrl: "http://zdrowieton.gft.com/zdrowieton-websocket"
+    appId: "zdrowieton_mc_demo"
 });
 
 mc.connect(function(){

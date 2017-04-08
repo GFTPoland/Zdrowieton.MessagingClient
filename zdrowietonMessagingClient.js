@@ -1,19 +1,23 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['stompjs'], factory);
+        define(['stompjs', 'sockjs-client'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory(require('stompjs'));
+        module.exports = factory(require('stompjs'), require('sockjs-client'));
     } else {
-        root.MessagingClient = factory(root.Stomp);
+        root.MessagingClient = factory(root.Stomp, root.SockJS);
     }
-}(this, function (Stomp) {
+}(this, function (Stomp, SockJS) {
 
     var global = Function('return this')();
 
     function MessagingClient (config) {
 
-        if (!Stomp) {
+        if (!Stomp && !global.SockJS) {
             throw new Error("StompJS dependency is missing!")
+        }
+
+        if (!SockJS && !global.SockJS) {
+            throw new Error("SockJS dependency is missing!")
         }
 
         if (!config) {
@@ -24,13 +28,7 @@
             throw new Error("config is missing 'appId' property");
         }
 
-        var WS = config.ws || global.WebSocket;
-
-        if (!WS) {
-            throw new Error("No support for native WebSockets detected. Please provide other implementation (for example SockJS) via config.ws")
-        }
-
-        var wsUrl = config.wsUrl || 'ws://zdrowieton.gft.com/zdrowieton-websocket/websocket';
+        var wsUrl = config.wsUrl || 'http://vps390375.ovh.net:8080/zdrowieton-websocket';
         var appId = config.appId.toLowerCase();
         var stompClient = null;
         var topics = {};
@@ -39,7 +37,7 @@
             if (stompClient) {
                 return callback(stompClient);
             } else {
-                var socket = new WS(wsUrl);
+                var socket = new SockJS(wsUrl);
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function () {
                     callback(stompClient);
@@ -120,6 +118,3 @@
     return MessagingClient;
 
 }));
-
-
-
